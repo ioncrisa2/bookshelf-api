@@ -5,7 +5,7 @@
   "main": "index.js",
   "author": "ioncrisa2",
   "scripts": {
-    "start": "nodemon ./index.js"
+    "start": "nodemon ./src/server.js"
   },
   "license": "MIT",
   "private": false,
