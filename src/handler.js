@@ -83,7 +83,18 @@ const getBookByIdHandler = (request, h) => {
 			status: "success",
 			data:{
 				"book": book.map(({id,name,year,author,summary,publisher,pageCount,readPage,finished,reading,createdAt,updatedAt}) => ({
-					id,name,year,author,summary,publisher,pageCount,readPage,finished,reading,"insertedAt": createdAt, updatedAt
+					"id"        :id,
+                    "name"      :name,
+                    "year"      :year,
+                    "author"    : author,
+                    "summary"   : summary,
+                    "publisher" : publisher,
+                    "pageCount" : pageCount,
+                    "readPage"  : readPage,
+                    "finished"  : finished,
+                    "reading"   : reading,
+                    "insertedAt": createdAt, 
+                    "updatedAt" : updatedAt
 				}))
 			}
 		};
