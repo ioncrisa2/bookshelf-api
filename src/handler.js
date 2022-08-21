@@ -113,6 +113,7 @@ const updateBookByIdHandler = (request, h) => {
 	const { id } = request.params;
 	const { name,year,author,summary,publisher,pageCount,readPage,reading } = request.payload;
 	const updatedAt = new Date().toISOString();
+    let finished = false;
 
 	//find id from books array
 	const index = books.findIndex((book) => book.id === id);
@@ -137,6 +138,10 @@ const updateBookByIdHandler = (request, h) => {
 			response.code(400);
 			return response;
 		}
+
+        if(readPage === pageCount){
+            finished = true;
+        }
 
 		//handle if index is found
 		books[index] = {
@@ -170,7 +175,7 @@ const updateBookByIdHandler = (request, h) => {
 };
 
 const deleteBookByIdHandler = (request, h) => {
-    
+
 };
 
 
