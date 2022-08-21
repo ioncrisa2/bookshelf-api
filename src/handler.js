@@ -115,10 +115,8 @@ const updateBookByIdHandler = (request, h) => {
 	const updatedAt = new Date().toISOString();
     let finished = false;
 
-	//find id from books array
 	const index = books.findIndex((book) => book.id === id);
 
-	//handle if id is found
 	if(index !== -1){
 		//handle if name is undefined
 		if(name === undefined){
@@ -129,7 +127,6 @@ const updateBookByIdHandler = (request, h) => {
 			response.code(400);
 			return response;
 		}
-		//handle if readPage is greater than pageCount
 		if(readPage > pageCount){
 			const response = h.response({
 				status:"fail",
@@ -143,7 +140,6 @@ const updateBookByIdHandler = (request, h) => {
             finished = true;
         }
 
-		//handle if index is found
 		books[index] = {
 			...books[index],
 			name,
@@ -165,7 +161,6 @@ const updateBookByIdHandler = (request, h) => {
 		return response;
 	}
 
-	//handle if id is not found
 	const response = h.response({
 		status:"fail",
 		message:"Gagal memperbarui buku. Id tidak ditemukan"
@@ -175,7 +170,25 @@ const updateBookByIdHandler = (request, h) => {
 };
 
 const deleteBookByIdHandler = (request, h) => {
+    const { id } = request.params;
+    const index = books.findIndex((book) => book.id === id);
 
+    if(index !== -1){
+        books.splice(index,1);
+        const response = h.response({
+            status:"success",
+            message:"Buku berhasil dihapus"
+        });
+        response.code(200);
+        return response;
+    }
+
+    const response = h.response({
+        status:"fail",
+        message:"Buku gagal dihapus. Id tidak ditemukan"
+    });
+    response.code(404);
+    return response;
 };
 
 
