@@ -1,26 +1,18 @@
 # Bookshelf API
 
-
 Bookshelf API merupakan projek yang dibuat untuk memenuhi syarat kelulusan pada kelas Dicoding yaitu "**Belajar membuat Aplikasi Backend untuk Pemula**"
-
-## Fitur
-1. Menambah buku baru
-2. Mendapatkan daftar semua buku yang tersedia
-3. Melihat detail data buku berdasarkan ID buku
-4. Mengubah data buku berdasarkan ID buku
-5. Menghapus data buku berdasarkan ID buku
 
 ### **Daftar Endpoint**
 
 Pengujian dapat dilakukan menggunakan postman
 
 |Endpoint|Method|Keterangan|
-|-------|------|-------|
-|/books | **POST** |Menambahkan buku baru
-|/books | **GET**  |Mengambil semua buku yang tersimpan
-|/books/{id} | **GET**| Mengambil detail satu buku berdasarkan id buku
-|/books/{id}|**PUT**|  Mengubah Satu buku berdasarkan id buku
-|/books/{id}|**DELETE**| Menghapus satu data buku berdasarkan ID buku 
+|-------|--------|-------|
+| /books | **POST** |Menambahkan buku baru
+| /books | **GET** |Mengambil semua buku yang tersimpan
+| /books/{id} | **GET** | Mengambil detail satu buku berdasarkan id buku
+| /books/{id} | **PUT** |  Mengubah Satu buku berdasarkan id buku
+| /books/{id} | **DELETE** | Menghapus satu data buku berdasarkan ID buku 
 
 
 # Menambahkan Data baru
@@ -63,7 +55,7 @@ Digunakan untuk menambahkan data buku
 
 ## Response Success 
 
-**HTTP Status Code** : `200 OK`
+**HTTP Status Code** : `201 Created`
 
 ```json
 {
@@ -93,7 +85,68 @@ Digunakan untuk menambahkan data buku
 **HTTP Status Code** : `400 Bad Request`
 
 
+```json
+{
+    "status": "fail",
+    "message": "Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount"
+}
+```
 
+## Error bila terjadi error karena alasan umum
 
+**HTTP Status Code** : `400 Bad Request`
+
+```json
+{
+    "status": "error",
+    "message": "Buku gagal ditambahkan"
+}
+```
+
+# Mengambil semua buku yang tersimpan
+
+**URL** : `/books`
+
+**METHOD** : `GET`
+
+## Response Success
+
+**HTTP Status Code** : `200 OK`
+
+```json
+{
+    "status": "success",
+    "data": {
+        "books": [
+            {
+                "id": "Qbax5Oy7L8WKf74l",
+                "name": "Buku A",
+                "publisher": "Dicoding Indonesia"
+            },
+            {
+                "id": "1L7ZtDUFeGs7VlEt",
+                "name": "Buku B",
+                "publisher": "Dicoding Indonesia"
+            },
+            {
+                "id": "K8DZbfI-t3LrY7lD",
+                "name": "Buku C",
+                "publisher": "Dicoding Indonesia"
+            }
+        ]
+    }
+}
+```
+
+## Response ketika data buku masih kosong
+
+```json
+{
+    "status": "success",
+    "data": {
+        "books": []
+    }
+}
+```
 
 
