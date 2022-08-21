@@ -1,4 +1,4 @@
-const { addBookHandler, getAllBooksHandler  } = require("./handler.js");
+const { addBookHandler, getAllBooksHandler, getBookByIdHandler  } = require("./handler.js");
 
 const routes = [
 	{
@@ -10,7 +10,12 @@ const routes = [
 		method:"GET",
 		path:"/books",
 		handler: getAllBooksHandler
-	}
+	},
+    {
+        method:"GET",
+        path:"/books/{id}",
+        handler: getBookByIdHandler
+    }
 ];
 
 module.exports = routes;

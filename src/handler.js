@@ -73,7 +73,33 @@ const getAllBooksHandler = () => ({
 	}
 });
 
+const getBookByIdHandler = (request, h) => {
+    const { id } = request.params;
+
+    const book = books.filter((n) => n.id === id);
+
+    if(book !== undefined){
+        return {
+            status: 'success',
+            data:{
+                "book": book.map(({id,name,year,author,summary,publisher,pageCount,readPage,finished,reading,createdAt,updatedAt}) => ({
+                   id,name,year,author,summary,publisher,pageCount,readPage,finished,reading,"insertedAt": createdAt, updatedAt
+                }))
+            }
+        };
+    }
+
+    const response = h.response({
+        status:'fail',
+        message:'Buku tidak ditemukan'
+    });
+
+    response.code(404);
+    return response;
+}
+
 module.exports = {
 	addBookHandler,
-	getAllBooksHandler
+	getAllBooksHandler,
+    getBookByIdHandler
 };
