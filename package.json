@@ -4,6 +4,7 @@
   "description": "simple bookshelf api for dicoding exam",
   "main": "index.js",
   "author": "ioncrisa2",
+  "type": "commonjs",
   "scripts": {
     "start": "nodemon ./src/server.js",
     "lint": "eslint --fix ./src"
