@@ -12,6 +12,8 @@ Bookshelf API merupakan projek yang dibuat untuk memenuhi syarat kelulusan pada 
 
 ### **Daftar Endpoint**
 
+Pengujian dapat dilakukan menggunakan postman
+
 |Endpoint|Method|Keterangan|
 |-------|------|-------|
 |/books | **POST** |Menambahkan buku baru
@@ -20,7 +22,6 @@ Bookshelf API merupakan projek yang dibuat untuk memenuhi syarat kelulusan pada 
 |/books/{id}|**PUT**|  Mengubah Satu buku berdasarkan id buku
 |/books/{id}|**DELETE**| Menghapus satu data buku berdasarkan ID buku 
 
-Pengujian dapat dilakukan menggunakan postman
 
 # Menambahkan Data baru
 
