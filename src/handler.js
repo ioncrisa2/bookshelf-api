@@ -1,49 +1,56 @@
 const { nanoid } = require("nanoid");
 const books = require("./books.js");
 
+/*
+    * Add book handler
+*/
 const addBookHandler = (request, h) => {
-	const { name,year,author,summary,publisher,pageCount,readPage,reading } = request.payload;
-	const id = nanoid(8);
-	let finished = false;
-	const createdAt = new Date().toISOString();
-	const updatedAt = createdAt;
+	const { name,year,author,summary,publisher,pageCount,readPage,reading } = request.payload; //get payload from request
+	const id = nanoid(8); //generate id
+	let finished = false; //set finished to false
+	const createdAt = new Date().toISOString(); //get current date
+	const updatedAt = createdAt; //set updated at to current date
 
+    //handle if name is undefined
 	if(name === undefined){
 		const response =  h.response({
 			"status":"fail",
 			"message":"Gagal menambahkan buku. Mohon isi nama buku"
 		});
-
+        //set response code to 400
 		response.code(400);
 		return response;
 	}
 
+    //handle if readPage is greater than pageCount
 	if(readPage > pageCount){
 		const response =  h.response({
 			"status":"fail",
 			"message":"Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount"
 		});
 
+        //set response code to 400
 		response.code(400);
 		return response;
 	}
 
+    //set finished to true if readPage is equal to pageCount
 	if(readPage === pageCount){
 		finished = true;
 	}
     
+    //push new book to books array
 	const newBookshelf = {
 		id, name, year, author, summary, publisher, pageCount, readPage,finished ,reading, createdAt, updatedAt
 	};
 
-	// console.log(newBookshelf);
-
+    //push new book to books array
 	books.push(newBookshelf);
 
+    //check if book is added
 	const success = books.filter((book) => book.id === id).length > 0;
 
-	// console.log(success);
-
+    //handle if book is added
 	if(success){
 		const response = h.response({
 			status:"success",
@@ -53,15 +60,18 @@ const addBookHandler = (request, h) => {
 			}
 		});
 
+        //set response code to 201
 		response.code(201);
 		return response;
 	}
 
+    //handle if book is not added
 	const response = h.response({
 		status:"error",
 		message: "Buku gagal ditambahkan"
 	});
 
+    //set response code to 500
 	response.code(500);
 	return response;
 };
