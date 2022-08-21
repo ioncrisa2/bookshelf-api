@@ -84,17 +84,17 @@ const getBookByIdHandler = (request, h) => {
 			data:{
 				"book": book.map(({id,name,year,author,summary,publisher,pageCount,readPage,finished,reading,createdAt,updatedAt}) => ({
 					"id"        :id,
-                    "name"      :name,
-                    "year"      :year,
-                    "author"    : author,
-                    "summary"   : summary,
-                    "publisher" : publisher,
-                    "pageCount" : pageCount,
-                    "readPage"  : readPage,
-                    "finished"  : finished,
-                    "reading"   : reading,
-                    "insertedAt": createdAt, 
-                    "updatedAt" : updatedAt
+					"name"      :name,
+					"year"      :year,
+					"author"    : author,
+					"summary"   : summary,
+					"publisher" : publisher,
+					"pageCount" : pageCount,
+					"readPage"  : readPage,
+					"finished"  : finished,
+					"reading"   : reading,
+					"insertedAt": createdAt, 
+					"updatedAt" : updatedAt
 				}))
 			}
 		};
@@ -109,8 +109,75 @@ const getBookByIdHandler = (request, h) => {
 	return response;
 };
 
+const updateBookByIdHandler = (request, h) => {
+	const { id } = request.params;
+	const { name,year,author,summary,publisher,pageCount,readPage,reading } = request.payload;
+	const updatedAt = new Date().toISOString();
+
+	//find id from books array
+	const index = books.findIndex((book) => book.id === id);
+
+	//handle if id is found
+	if(index !== -1){
+		//handle if name is undefined
+		if(name === undefined){
+			const response = h.response({
+				status:"fail",
+				message:"Gagal memperbarui buku. Mohon isi nama buku"
+			});
+			response.code(400);
+			return response;
+		}
+		//handle if readPage is greater than pageCount
+		if(readPage > pageCount){
+			const response = h.response({
+				status:"fail",
+				message:"Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount"
+			});
+			response.code(400);
+			return response;
+		}
+
+		//handle if index is found
+		books[index] = {
+			...books[index],
+			name,
+			year,
+			author,
+			summary,
+			publisher,
+			pageCount,
+			readPage,
+			reading,
+			updatedAt
+		};
+
+		const response = h.response({
+			status:"success",
+			message:"Buku berhasil diperbarui"
+		});
+		response.code(200);
+		return response;
+	}
+
+	//handle if id is not found
+	const response = h.response({
+		status:"fail",
+		message:"Gagal memperbarui buku. Id tidak ditemukan"
+	});
+	response.code(404);
+	return response;
+};
+
+const deleteBookByIdHandler = (request, h) => {
+    
+};
+
+
 module.exports = {
 	addBookHandler,
 	getAllBooksHandler,
-	getBookByIdHandler
+	getBookByIdHandler,
+	updateBookByIdHandler,
+	deleteBookByIdHandler
 };
