@@ -6,7 +6,7 @@
   "author": "ioncrisa2",
   "type": "commonjs",
   "scripts": {
-    "start": "nodemon ./src/server.js",
+    "start": "node ./src/server.js",
     "lint": "eslint --fix ./src"
   },
   "license": "MIT",
