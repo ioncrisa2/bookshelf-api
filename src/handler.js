@@ -1,8 +1,7 @@
 import { nanoid } from "nanoid";
 import books from "./books.js";
-/*
-    * Add book handler
-*/
+
+
 export const addBookHandler = (request, h) => {
 	const { name,year,author,summary,publisher,pageCount,readPage,reading } = request.payload; //get payload from request
 	const id = nanoid(8); //generate id
