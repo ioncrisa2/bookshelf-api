@@ -1,5 +1,3 @@
-// const { nanoid } = require("nanoid"); 
-// const books = require("./books.js");
 import { nanoid } from "nanoid";
 import books from "./books.js";
 /*
