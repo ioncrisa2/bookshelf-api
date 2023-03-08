@@ -1,10 +1,11 @@
-const { nanoid } = require("nanoid"); 
-const books = require("./books.js");
-
+// const { nanoid } = require("nanoid"); 
+// const books = require("./books.js");
+import { nanoid } from "nanoid";
+import books from "./books.js";
 /*
     * Add book handler
 */
-const addBookHandler = (request, h) => {
+export const addBookHandler = (request, h) => {
 	const { name,year,author,summary,publisher,pageCount,readPage,reading } = request.payload; //get payload from request
 	const id = nanoid(8); //generate id
 	let finished = false; //set finished to false
@@ -76,7 +77,7 @@ const addBookHandler = (request, h) => {
 	return response;
 };
 
-const getAllBooksHandler = () => ({
+export const getAllBooksHandler = () => ({
 	status:'success',
 	data: {
 		books: books.map(({id,name,publisher}) => ({
@@ -85,7 +86,7 @@ const getAllBooksHandler = () => ({
 	}
 });
 
-const getBookByIdHandler = (request, h) => {
+export const getBookByIdHandler = (request, h) => {
 	const { id } = request.params;
 
 	const book = books.filter((n) => n.id === id);
@@ -121,7 +122,7 @@ const getBookByIdHandler = (request, h) => {
 	return response;
 };
 
-const updateBookByIdHandler = (request, h) => {
+export const updateBookByIdHandler = (request, h) => {
 	const { id } = request.params;
 	const { name,year,author,summary,publisher,pageCount,readPage,reading } = request.payload;
 	const updatedAt = new Date().toISOString();
@@ -180,7 +181,7 @@ const updateBookByIdHandler = (request, h) => {
 	return response;
 };
 
-const deleteBookByIdHandler = (request, h) => {
+export const deleteBookByIdHandler = (request, h) => {
 	const { id } = request.params;
 	const index = books.findIndex((book) => book.id === id);
 
@@ -198,13 +199,4 @@ const deleteBookByIdHandler = (request, h) => {
 	});
 	response.code(404);
 	return response;
-};
-
-
-module.exports = {
-	addBookHandler,
-	getAllBooksHandler,
-	getBookByIdHandler,
-	updateBookByIdHandler,
-	deleteBookByIdHandler
 };

@@ -1,6 +1,12 @@
-const { addBookHandler, getAllBooksHandler, getBookByIdHandler, updateBookByIdHandler ,deleteBookByIdHandler } = require("./handler.js");
+import { 
+	addBookHandler, 
+	getAllBooksHandler, 
+	getBookByIdHandler, 
+	updateBookByIdHandler,
+	deleteBookByIdHandler
+ } from "./handler.js";
 
-const routes = [
+export const routes = [
 	{
 		method:"POST",
 		path:"/books",
@@ -27,5 +33,3 @@ const routes = [
 		handler: deleteBookByIdHandler
 	}
 ];
-
-module.exports = routes;
