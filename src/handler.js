@@ -86,31 +86,28 @@ export const getAllBooksHandler = () => ({
 export const getBookByIdHandler = (request, h) => {
 	const { id } = request.params;
 
-	const book = books.filter((n) => n.id === id);
+	const book = books.find(book => book.id === id );
 
-	if(book.length > 0){
+	if(book){
+		const filteredBook = {
+			id        : book.id,
+			name      : book.name,
+			year      : book.year,
+			author    : book.author,
+			summary   : book.summary,
+			publisher : book.publisher,
+			pageCount : book.pageCount,
+			readPage  : book.readPage,
+			finished  : book.finished,
+			reading   : book.reading,
+			insertedAt: book.createdAt,
+			updatedAt : book.updatedAt
+		};
 
 		return {
-			status: "success",
-			data:{
-				"book": book.map( user => {
-					return{
-						id: user.id,
-						name: user.name,
-						year: user.year,
-						author: user.author,
-						summary: user.summary,
-						publisher : user.publisher,
-						pageCount : user.pageCount,
-						readPage  : user.readPage,
-						finished  : user.finished,
-						reading   : user.reading,
-						insertedAt: user.createdAt,
-						updatedAt : user.updatedAt
-					};
-				})
-			}
-		};
+			status:"success",
+			data:{"book": filteredBook}
+		}
 	}
 
 	const response = h.response({
