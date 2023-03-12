@@ -88,24 +88,27 @@ export const getBookByIdHandler = (request, h) => {
 
 	const book = books.filter((n) => n.id === id);
 
-	if(book !== undefined){
+	if(book.length > 0){
+
 		return {
 			status: "success",
 			data:{
-				"book": book.map(({id,name,year,author,summary,publisher,pageCount,readPage,finished,reading,createdAt,updatedAt}) => ({
-					"id"        :id,
-					"name"      :name,
-					"year"      :year,
-					"author"    : author,
-					"summary"   : summary,
-					"publisher" : publisher,
-					"pageCount" : pageCount,
-					"readPage"  : readPage,
-					"finished"  : finished,
-					"reading"   : reading,
-					"insertedAt": createdAt,
-					"updatedAt" : updatedAt
-				}))
+				"book": book.map( user => {
+					return{
+						id: user.id,
+						name: user.name,
+						year: user.year,
+						author: user.author,
+						summary: user.summary,
+						publisher : user.publisher,
+						pageCount : user.pageCount,
+						readPage  : user.readPage,
+						finished  : user.finished,
+						reading   : user.reading,
+						insertedAt: user.createdAt,
+						updatedAt : user.updatedAt
+					};
+				})
 			}
 		};
 	}
@@ -166,7 +169,7 @@ export const updateBookByIdHandler = (request, h) => {
 
 		return {
 			status: "success",
-			message: "Buku berhasil diperbaharui"
+			message: "Buku berhasil diperbarui"
 		};
 	}
 
